@@ -39,18 +39,18 @@ router.patch("/:id", async (req, res) => {
     res.json(error);
   }
 });
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         if(user){
             
             return res.status(200).json(user);
         }else{
-            res.status(400).json({"message":"Kullanıcı Bulunamadı"});
+            res.status(404).json({"message":"Kullanıcı Bulunamadı"});
         }
     } catch (error) {
         
-        res.json(error);
+        next(error);
     }
 
 });
