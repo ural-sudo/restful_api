@@ -12,16 +12,17 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "name":"Erçin",
-    "age": "26"
+    "name":"12",
+    "email":"KAHRAMAN89@icloud.com",
+    "password":"123456"
 }
 ###
-PATCH http://localhost:3000/user/2
+PATCH http://localhost:3000/user/651565e72ea6453a6d6ed27e
 Content-Type: application/json
 
 {
-    "name":"name"
+    "nam":"updatedErçin"
 }
 ###
-DELETE http://localhost:3000/user/666
+DELETE http://localhost:3000/user/651566a3e4786
 Content-Type: application/json
