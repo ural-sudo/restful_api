@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const httpErr = require('http-errors');
 
 const User = require("../model/user");
 
@@ -12,17 +13,17 @@ router.get("/:id", (req, res) => {
   res.send(req.params.id);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res,next) => {
   const user = new User(req.body);
   try {
     await user.save();
     res.json(user);
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
@@ -32,11 +33,10 @@ router.patch("/:id", async (req, res) => {
       
       return res.json(result);
     } else {
-      res.status(404).json({ message: "User not found" });
+      throw httpErr(404,"User Not Found");
     }
   } catch (error) {
-    console.log(error);
-    res.json(error);
+    next(error);
   }
 });
 router.delete("/:id", async (req, res, next) => {
@@ -46,11 +46,11 @@ router.delete("/:id", async (req, res, next) => {
             
             return res.status(200).json(user);
         }else{
-            res.status(404).json({"message":"Kullanıcı Bulunamadı"});
+            throw httpErr(404,"User Not Found");
         }
-    } catch (error) {
+    } catch (err) {
         
-        next(error);
+        next(err);
     }
 
 });

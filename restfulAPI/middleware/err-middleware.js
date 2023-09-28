@@ -1,6 +1,7 @@
 const catchErr = (err, req, res, next) => {
   res.json({
-    message:err.message
+    message:err.message,
+    errCode:err.statusCode
   });
 };
 

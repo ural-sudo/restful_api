@@ -21,8 +21,8 @@ PATCH http://localhost:3000/user/651565e72ea6453a6d6ed27e
 Content-Type: application/json
 
 {
-    "nam":"updatedErçin"
+    "name":"updatedErçin"
 }
 ###
-DELETE http://localhost:3000/user/651566a3e4786
+DELETE http://localhost:3000/user/651565e72ea6453a6d6ed27d
 Content-Type: application/json
