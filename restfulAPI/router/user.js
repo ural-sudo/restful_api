@@ -1,8 +1,11 @@
 const express = require("express");
+const {emailValidator} = require('../core/validation/email-validation');
+const {validationResult} = require('express-validator');
 const router = express.Router();
 const httpErr = require('http-errors');
 
 const User = require("../model/user");
+
 
 router.get("/", async (req, res) => {
   const users = await User.find({});
@@ -13,25 +16,37 @@ router.get("/:id", (req, res) => {
   res.send(req.params.id);
 });
 
-router.post("/", async (req, res,next) => {
+router.post("/",emailValidator('email'), async (req, res,next) => {
   const user = new User(req.body);
+  const result = validationResult(req);
   try {
-    await user.save();
-    res.json(user);
-  } catch (err) {
-    next(err);
+    if(result.isEmpty()){
+      await user.save();
+      res.status(201).json(user);
+    }else{
+      
+      throw httpErr(400,result);
+    }
+    
+  } catch (error) { 
+    console.log(error);
+    next(error);
   }
+  
 });
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id",emailValidator('email'),async (req, res, next) => {
   const id = req.params.id;
-
+  const result =validationResult(req);
   try {
     const user = await User.findById(id);
     if (user) {
-      const result = await user.updateOne(req.body, { new: true });
-      
-      return res.json(result);
+      if(result.isEmpty()){
+        const result = await user.updateOne(req.body, { new: true });
+        return res.json(result);
+      }else{
+        throw httpErr(400,result);
+      }
     } else {
       throw httpErr(404,"User Not Found");
     }
@@ -39,6 +54,8 @@ router.patch("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+
 router.delete("/:id", async (req, res, next) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);

@@ -12,16 +12,16 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "name":"12",
-    "email":"KAHRAMAN89@icloud.com",
+    "name":"1234125",
+    "email":"ercin39@icloud.com",
     "password":"123456"
 }
 ###
-PATCH http://localhost:3000/user/651565e72ea6453a6d6ed27e
+PATCH http://localhost:3000/user/651565e72ea6453a6d6ed276
 Content-Type: application/json
 
-{
-    "name":"updatedErçin"
+{   
+    "email":"deneme@gmail.com"
 }
 ###
 DELETE http://localhost:3000/user/651565e72ea6453a6d6ed27d
