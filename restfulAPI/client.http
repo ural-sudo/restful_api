@@ -12,9 +12,9 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "name":"1234125",
-    "email":"ercin39@icloud.com",
-    "password":"123456"
+    "name":"bcrypted-user2",
+    "email":"user2@gmail.com",
+    "password":"kahraman"
 }
 ###
 PATCH http://localhost:3000/user/651565e72ea6453a6d6ed276

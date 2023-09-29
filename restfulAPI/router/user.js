@@ -1,6 +1,7 @@
 const express = require("express");
 const {emailValidator} = require('../core/validation/email-validation');
 const {validationResult} = require('express-validator');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const httpErr = require('http-errors');
 
@@ -21,6 +22,7 @@ router.post("/",emailValidator('email'), async (req, res,next) => {
   const result = validationResult(req);
   try {
     if(result.isEmpty()){
+      user.password = await bcrypt.hash(user.password,10);
       await user.save();
       res.status(201).json(user);
     }else{
@@ -40,6 +42,7 @@ router.patch("/:id",emailValidator('email'),async (req, res, next) => {
   const result =validationResult(req);
   try {
     const user = await User.findById(id);
+    
     if (user) {
       if(result.isEmpty()){
         const result = await user.updateOne(req.body, { new: true });
