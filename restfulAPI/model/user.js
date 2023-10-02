@@ -22,7 +22,7 @@ const UserSchema = new Schema({
         type:String,
         trim:true,
         required:true,
-        lowercase:true,
+        //lowercase:true,
 
     }
 },{collection:'users'}); 

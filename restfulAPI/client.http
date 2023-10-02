@@ -12,10 +12,19 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "name":"bcrypted-user2",
-    "email":"user2@gmail.com",
-    "password":"kahraman"
+    "name":"ercin1",
+    "email":"ercin1@gmail.com",
+    "password": "ercin1234"
 }
+###
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{   
+    "email":"ercin1@gmail.com",
+    "password":"ercin123"
+}
+
 ###
 PATCH http://localhost:3000/user/651565e72ea6453a6d6ed276
 Content-Type: application/json
